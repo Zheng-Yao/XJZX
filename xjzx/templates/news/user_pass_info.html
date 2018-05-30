@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'news/user_head.html' %}
+    <script type="text/javascript" src="/static/news/js/user_pass_info.js"></script>
+</head>
+<body class="inframe_body">
+<form class="pass_info" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <h3>密码修改</h3>
+    <div class="form-group">
+        <label>当前密码：</label>
+        <input type="password" name="current_pwd" class="input_txt">
+    </div>
+    <div class="form-group">
+        <label>新密码：</label>
+        <input type="password" name="new_pwd" class="input_txt">
+    </div>
+    <div class="form-group">
+        <label>确认密码：</label>
+        <input type="password" name="new_pwd2" class="input_txt">
+    </div>
+    {% if msg %}
+        <div class="error_tip" style="display: block;">{{ msg }}</div>
+    {% endif %}
+    <div class="form-group">
+        <input type="submit" value="保 存" class="input_sub">
+    </div>
+</form>
+</body>
+</html>

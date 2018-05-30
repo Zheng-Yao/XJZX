@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'news/user_head.html' %}
+</head>
+<body class="inframe_body">
+<div class="news_list">
+    <h3>新闻列表</h3>
+    <ul class="article_list">
+        {% for news in news_list %}
+        <li>
+            <a href="/user/release?news_id={{ news.id }}">{{ news.title }}</a>
+            {% if news.status == 3 %}
+                <em class="nopass">未通过</em>
+            {% elif news.status ==1 %}
+                <em class="review">审核中</em>
+            {% else %}
+                <em class="pass">已通过</em>
+            {% endif %}
+            <span>{{ news.update_time }}</span>
+            {% if news.status == 3 %}
+                <b>{{ news.reason }}</b>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    <div id="pagination" class="page"></div>
+    <script>
+        // 调用父页面的方法改变菜单指示
+        // window.parent.fnChangeMenu(2);
+
+        $(function () {
+            $("#pagination").pagination({
+                currentPage: {{ page }},
+                totalPage: {{ total_pages }},
+                callback: function (current) {
+                    location.href = '?page=' + current;
+                }
+            });
+        });
+    </script>
+
+</div>
+</body>
+</html>
